@@ -1,38 +1,38 @@
 import "./About.css";
 
 const HIGHLIGHTS = [
-  { label: "Focus", value: "Responsive, user-friendly UI", icon: "bi-layout-sidebar-inset" },
-  { label: "Stack", value: "HTML, CSS, JavaScript, React", icon: "bi-code-slash" },
-  { label: "Currently", value: "Seeking Frontend roles", icon: "bi-briefcase" },
+  { label: "Education", value: "B.Com Computer Applications", icon: "bi-mortarboard" },
+  { label: "Role Target", value: "Junior Frontend / MERN Developer", icon: "bi-briefcase" },
+  { label: "Core Stack", value: "React, JS, Node, Express, MongoDB", icon: "bi-code-slash" },
+  { label: "Focus", value: "Responsive UI & REST API Integration", icon: "bi-layout-sidebar-inset" },
 ];
 
 export default function About() {
   return (
     <section id="about" className="section section-alt about">
       <div className="container">
-        <p className="eyebrow">&lt;About/&gt;</p>
-        <h2 className="section-heading reveal">Who I am</h2>
+        <p className="eyebrow">&lt;About / HR Overview&gt;</p>
+        <h2 className="section-heading reveal">Professional Summary</h2>
 
         <div className="about__grid">
           <div className="about__text-container reveal">
             <p className="about__text">
-              I&apos;m Harani Gayathri, a frontend web developer at the start of my career and
-              genuinely excited about building for the web. I care about the details that make a
-              site feel good to use — clear layouts, fast load times, and interfaces that work
-              just as well on a small phone screen as they do on a desktop monitor.
+              I am a <strong>B.Com Computer Applications graduate</strong> actively seeking an entry-level{" "}
+              <strong>Frontend Web Developer or MERN Stack Developer</strong> position. With a strong academic foundation in computer applications and hands-on experience building real-world web projects, I focus on creating clean, accessible user interfaces backed by solid server logic.
             </p>
+
             <p className="about__text">
-              As a fresher, I&apos;ve focused on building a strong foundation in HTML, CSS, and
-              JavaScript, and I use React to build reusable, component-driven interfaces. Git and
-              GitHub are part of my everyday workflow, so my code stays organized and easy to
-              collaborate on. I&apos;m looking for a Frontend Web Developer role where I can keep
-              learning, contribute from day one, and grow alongside a team that values good craft.
+              My technical core includes <strong>HTML5, CSS3, JavaScript (ES6+), and React</strong> for frontend architecture, combined with <strong>Node.js, Express.js, MongoDB, and RESTful APIs</strong> for backend data flows. I maintain clean version control with Git/GitHub and prioritize responsive, mobile-first design across every build.
+            </p>
+
+            <p className="about__text">
+              As a fresher, I bring strong problem-solving dedication, high learnability, and a commitment to writing clean, maintainable code that adds immediate value to engineering teams.
             </p>
           </div>
 
           <ul className="about__highlights">
             {HIGHLIGHTS.map((h, i) => (
-              <li key={h.label} className="about__highlight-card reveal" style={{ transitionDelay: `${i * 0.12}s` }}>
+              <li key={h.label} className="about__highlight-card reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
                 <div className="about__highlight-icon">
                   <i className={`bi ${h.icon}`} aria-hidden="true" />
                 </div>

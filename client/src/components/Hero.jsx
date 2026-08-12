@@ -11,9 +11,9 @@ const SOCIALS = [
 const CODE_LINES = [
   { indent: 0, text: "const developer = {" },
   { indent: 1, text: 'name: "Harani Gayathri",' },
-  { indent: 1, text: 'role: "Frontend Web Developer",' },
-  { indent: 1, text: 'status: "Fresher",' },
-  { indent: 1, text: "skills: ['HTML', 'CSS', 'JS', 'React']," },
+  { indent: 1, text: 'role: "Frontend | MERN Developer",' },
+  { indent: 1, text: 'degree: "B.Com Computer Applications",' },
+  { indent: 1, text: "skills: ['React', 'JS', 'Node', 'MongoDB']," },
   { indent: 1, text: "openToWork: true," },
   { indent: 0, text: "};" },
   { indent: 0, text: "export default developer;" },
@@ -21,9 +21,9 @@ const CODE_LINES = [
 
 const FLOATING_BADGES = [
   { name: "React", icon: "bi-atom", color: "#61dafb", top: "8%", left: "-4%" },
-  { name: "JavaScript", icon: "bi-filetype-js", color: "#f7df1e", top: "35%", right: "-8%" },
-  { name: "HTML5", icon: "bi-filetype-html", color: "#e34f26", bottom: "16%", left: "-6%" },
-  { name: "CSS3", icon: "bi-filetype-css", color: "#1572b6", bottom: "8%", right: "-2%" },
+  { name: "Node.js", icon: "bi-node-plus", color: "#68a063", top: "35%", right: "-8%" },
+  { name: "MongoDB", icon: "bi-database", color: "#47a248", bottom: "16%", left: "-6%" },
+  { name: "JavaScript", icon: "bi-filetype-js", color: "#f7df1e", bottom: "8%", right: "-2%" },
 ];
 
 export default function Hero() {
@@ -66,7 +66,7 @@ export default function Hero() {
     };
   }, []);
 
-  // Editor typing animation: types lines 1 to 8 then stops cleanly
+  // Editor typing animation
   useEffect(() => {
     let lineIndex = 0;
     let charIndex = 0;
@@ -111,9 +111,9 @@ export default function Hero() {
       <div className="container hero__inner">
         <div className="hero__content">
           <div className="hero__eyebrow-wrapper hero-reveal hero-reveal--1">
-            <p className="eyebrow">&lt;Home/&gt;</p>
+            <p className="eyebrow">&lt;Frontend & MERN Developer/&gt;</p>
             <span className="hero__status-badge">
-              <span className="hero__status-dot" /> Available for hire
+              <span className="hero__status-dot" /> Available for Junior / Fresher Roles
             </span>
           </div>
 
@@ -122,17 +122,20 @@ export default function Hero() {
           </h1>
 
           <p className="hero__tagline hero-reveal hero-reveal--3">
-            Frontend Web Developer, fresher — turning ideas into clean, responsive interfaces.
+            Frontend Developer | MERN Stack Developer
           </p>
 
           <p className="hero__desc hero-reveal hero-reveal--4">
-            I build fast, accessible websites with HTML, CSS, JavaScript and React, and
-            I&apos;m actively looking for my first opportunity as a Frontend Web Developer.
+            B.Com Computer Applications graduate specializing in building fast, responsive frontend web interfaces
+            and full-stack MERN applications using HTML, CSS, JavaScript, React, Node.js, Express, and MongoDB.
           </p>
 
           <div className="hero__actions hero-reveal hero-reveal--5">
-            <a href="/Harani Gayathri Resume.pdf" download="Harani Gayathri Resume.pdf" className="btn btn-primary">
-              <i className="bi bi-download" aria-hidden="true" /> Download Resume
+            <a href="#projects" className="btn btn-primary">
+              <i className="bi bi-folder-check" aria-hidden="true" /> View Projects
+            </a>
+            <a href="/Harani Gayathri Resume.pdf" download="Harani Gayathri Resume.pdf" className="btn btn-outline">
+              <i className="bi bi-file-earmark-arrow-down" aria-hidden="true" /> Download Resume
             </a>
             <a href="#contact" className="btn btn-outline">
               Contact Me <i className="bi bi-arrow-right" aria-hidden="true" />
@@ -168,7 +171,7 @@ export default function Hero() {
                 <img
                   className="hero__character-img"
                   src={heroCharacterImg}
-                  alt="Animated developer character representation of Harani Gayathri, Frontend Web Developer"
+                  alt="Developer character portrait of Harani Gayathri, Frontend Web Developer"
                 />
               </div>
             </button>

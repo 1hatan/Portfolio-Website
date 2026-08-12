@@ -6,6 +6,7 @@ const NAV_LINKS = [
   { href: "#about", id: "about", label: "About" },
   { href: "#skills", id: "skills", label: "Skills" },
   { href: "#projects", id: "projects", label: "Projects" },
+  { href: "/Harani Gayathri Resume.pdf", download: true, label: "Resume" },
   { href: "#contact", id: "contact", label: "Contact" },
 ];
 
@@ -22,7 +23,8 @@ export default function Navbar({ theme, onToggleTheme }) {
 
   // IntersectionObserver scroll-spy for active nav link
   useEffect(() => {
-    const sectionElements = NAV_LINKS.map((link) => document.getElementById(link.id)).filter(Boolean);
+    const sectionIds = ["home", "about", "skills", "projects", "contact"];
+    const sectionElements = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -42,9 +44,8 @@ export default function Navbar({ theme, onToggleTheme }) {
     return () => observer.disconnect();
   }, []);
 
-  // Close mobile menu on link click
   const handleLinkClick = (id) => {
-    setActiveSection(id);
+    if (id) setActiveSection(id);
     setMenuOpen(false);
   };
 
@@ -60,12 +61,16 @@ export default function Navbar({ theme, onToggleTheme }) {
         <nav className={`navbar__nav ${menuOpen ? "navbar__nav--open" : ""}`} aria-label="Primary">
           <ul>
             {NAV_LINKS.map((link) => (
-              <li key={link.href}>
+              <li key={link.label}>
                 <a
                   href={link.href}
                   className={activeSection === link.id ? "active" : ""}
+                  download={link.download ? "Harani Gayathri Resume.pdf" : undefined}
+                  target={link.download ? "_blank" : undefined}
+                  rel={link.download ? "noreferrer" : undefined}
                   onClick={() => handleLinkClick(link.id)}
                 >
+                  {link.download && <i className="bi bi-file-earmark-arrow-down navbar__icon" aria-hidden="true" />}
                   {link.label}
                 </a>
               </li>
@@ -74,6 +79,27 @@ export default function Navbar({ theme, onToggleTheme }) {
         </nav>
 
         <div className="navbar__actions">
+          <a
+            href="https://github.com/1hatan"
+            target="_blank"
+            rel="noreferrer"
+            className="navbar__social-link"
+            title="GitHub Profile"
+            aria-label="GitHub Profile"
+          >
+            <i className="bi bi-github" aria-hidden="true" />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/haranigayathri008/"
+            target="_blank"
+            rel="noreferrer"
+            className="navbar__social-link"
+            title="LinkedIn Profile"
+            aria-label="LinkedIn Profile"
+          >
+            <i className="bi bi-linkedin" aria-hidden="true" />
+          </a>
+
           <button
             className="theme-toggle"
             onClick={onToggleTheme}

@@ -2,60 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import skills from "../data/skills.js";
 import "./Skills.css";
 
-function SkillCard({ skill, animate, index }) {
-  const cardRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -5;
-    const rotateY = ((x - centerX) / centerX) * 5;
-
-    card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
-  };
-
-  const handleMouseLeave = () => {
-    const card = cardRef.current;
-    if (!card) return;
-    card.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg) translateY(0px)";
-  };
-
-  return (
-    <div
-      ref={cardRef}
-      className="skill-card reveal"
-      style={{ transitionDelay: `${index * 0.08}s` }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div className="skill-card__top">
-        <span className="skill-card__name">{skill.name}</span>
-        <span className="skill-card__level">{skill.level}%</span>
-      </div>
-
-      <div className="skill-card__track">
-        <div
-          className="skill-card__fill"
-          style={{ width: animate ? `${skill.level}%` : "0%" }}
-        >
-          <span className="skill-card__handle" />
-        </div>
-      </div>
-
-      <span className="skill-card__category">{skill.category}</span>
-    </div>
-  );
-}
+const CATEGORIES = ["All", "Frontend", "Backend", "Database", "Tools"];
 
 export default function Skills() {
   const sectionRef = useRef(null);
   const [animate, setAnimate] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -68,25 +20,64 @@ export default function Skills() {
           observer.disconnect();
         }
       },
-      { threshold: 0.25 }
+      { threshold: 0.2 }
     );
 
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
 
+  const filteredSkills =
+    selectedCategory === "All"
+      ? skills
+      : skills.filter((s) => s.category.toLowerCase() === selectedCategory.toLowerCase());
+
   return (
     <section id="skills" className="section skills" ref={sectionRef}>
       <div className="container">
-        <p className="eyebrow">&lt;Skills /&gt;</p>
-        <h2 className="section-heading reveal">What I work with</h2>
+        <p className="eyebrow">&lt;Skills & Technologies /&gt;</p>
+        <h2 className="section-heading reveal">Technical Stack</h2>
         <p className="section-sub reveal">
-          Tools and technologies I use to design and build interfaces.
+          Categorized technical skills and tools used in my project implementations.
         </p>
 
+        {/* Recruiter Category Filter Tabs */}
+        <div className="skills__tabs reveal">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              className={`skills__tab ${selectedCategory === cat ? "is-active" : ""}`}
+              onClick={() => setSelectedCategory(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
         <div className="skills__grid">
-          {skills.map((skill, idx) => (
-            <SkillCard key={skill.name} skill={skill} animate={animate} index={idx} />
+          {filteredSkills.map((skill, idx) => (
+            <div
+              key={skill.name}
+              className="skill-card reveal"
+              style={{ transitionDelay: `${(idx % 4) * 0.08}s` }}
+            >
+              <div className="skill-card__top">
+                <span className="skill-card__name">{skill.name}</span>
+                <span className="skill-card__level">{skill.level}%</span>
+              </div>
+
+              <div className="skill-card__track">
+                <div
+                  className="skill-card__fill"
+                  style={{ width: animate ? `${skill.level}%` : "0%" }}
+                >
+                  <span className="skill-card__handle" />
+                </div>
+              </div>
+
+              <span className="skill-card__category">{skill.category}</span>
+            </div>
           ))}
         </div>
       </div>

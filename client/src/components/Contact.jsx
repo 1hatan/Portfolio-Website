@@ -63,48 +63,56 @@ export default function Contact() {
     <section id="contact" className="section section-alt contact">
       <div className="container contact__grid">
         <div className="reveal">
-          <p className="eyebrow">&lt;Contact/&gt;</p>
-          <h2 className="section-heading">Let&apos;s work together</h2>
+          <p className="eyebrow">&lt;Get In Touch / Recruiter Contact&gt;</p>
+          <h2 className="section-heading">Let&apos;s Connect</h2>
           <p className="section-sub">
-            Have an opening for a Frontend Web Developer, or just want to say hi? My inbox is open.
+            Actively open for <strong>Fresher / Junior Frontend Developer & MERN Stack Developer</strong> positions. Feel free to reach out via email, LinkedIn, or send a direct message.
           </p>
 
           <ul className="contact__info">
             <li>
-              <span className="contact__info-label">Email</span>
+              <span className="contact__info-label">Direct Email</span>
               <a href="mailto:gayathri.dev2317@gmail.com">
                 <i className="bi bi-envelope-at" aria-hidden="true" /> gayathri.dev2317@gmail.com
               </a>
             </li>
             <li>
-              <span className="contact__info-label">LinkedIn</span>
+              <span className="contact__info-label">LinkedIn Profile</span>
               <a href="https://www.linkedin.com/in/haranigayathri008/" target="_blank" rel="noreferrer">
                 <i className="bi bi-linkedin" aria-hidden="true" /> linkedin.com/in/haranigayathri008
               </a>
             </li>
             <li>
-              <span className="contact__info-label">GitHub</span>
+              <span className="contact__info-label">GitHub Repositories</span>
               <a href="https://github.com/1hatan" target="_blank" rel="noreferrer">
                 <i className="bi bi-github" aria-hidden="true" /> github.com/1hatan
               </a>
             </li>
             <li>
+              <span className="contact__info-label">Resume PDF</span>
+              <a href="/Harani Gayathri Resume.pdf" download="Harani Gayathri Resume.pdf">
+                <i className="bi bi-file-earmark-arrow-down" aria-hidden="true" /> Download Harani Gayathri Resume.pdf
+              </a>
+            </li>
+            <li>
               <span className="contact__info-label">Location</span>
               <span>
-                <i className="bi bi-geo-alt" aria-hidden="true" /> Tamil Nadu, India
+                <i className="bi bi-geo-alt" aria-hidden="true" /> Tamil Nadu, India (Open to Remote & Relocation)
               </span>
             </li>
           </ul>
         </div>
 
         <form className="contact-form reveal" onSubmit={handleSubmit} noValidate>
+          <h3 className="contact-form__title">Send a Direct Message</h3>
+
           <div className="form-field">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Your Name / Organization</label>
             <input
               id="name"
               name="name"
               type="text"
-              placeholder="Your name"
+              placeholder="e.g. HR Recruiter / Hiring Manager"
               value={form.name}
               onChange={handleChange}
               aria-invalid={Boolean(errors.name)}
@@ -118,12 +126,12 @@ export default function Contact() {
           </div>
 
           <div className="form-field">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Your Work Email</label>
             <input
               id="email"
               name="email"
               type="email"
-              placeholder="your.email@example.com"
+              placeholder="recruiter@company.com"
               value={form.email}
               onChange={handleChange}
               aria-invalid={Boolean(errors.email)}
@@ -137,12 +145,12 @@ export default function Contact() {
           </div>
 
           <div className="form-field">
-            <label htmlFor="message">Message</label>
+            <label htmlFor="message">Message / Opportunity Details</label>
             <textarea
               id="message"
               name="message"
               rows="5"
-              placeholder="Hello Harani, I'd like to talk about..."
+              placeholder="Hi Harani, we have an opening for a Frontend Developer role..."
               value={form.message}
               onChange={handleChange}
               aria-invalid={Boolean(errors.message)}
@@ -169,12 +177,12 @@ export default function Contact() {
 
           {status === "success" && (
             <p className="form-status form-status--success" role="status">
-              ✨ Thanks! Your message has been sent — I&apos;ll get back to you soon.
+              ✨ Thank you! Your message has been submitted. I will respond to your email promptly.
             </p>
           )}
           {status === "error" && (
             <p className="form-status form-status--error" role="alert">
-              ⚠️ Something went wrong. Please try again in a moment or email me directly.
+              ⚠️ Message delivery failed. Please email me directly at gayathri.dev2317@gmail.com.
             </p>
           )}
         </form>
