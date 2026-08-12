@@ -129,31 +129,34 @@ textarea:focus-visible {
 
 .section {
   padding-block: clamp(64px, 10vw, 120px);
+  position: relative;
 }
 
 .section-alt {
   background: var(--bg-alt);
 }
 
-/* Mono "JSX tag" eyebrow label — ties section headers to the dev's
-   own toolset instead of a generic numbered marker. */
+/* Mono "JSX tag" eyebrow label */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 500;
   color: var(--accent);
   background: var(--accent-soft);
   padding: 6px 14px;
   border-radius: 999px;
   margin-bottom: 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 .section-heading {
-  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
   font-weight: 700;
   margin-bottom: 12px;
+  line-height: 1.15;
 }
 
 .section-sub {
@@ -176,27 +179,28 @@ textarea:focus-visible {
   font-weight: 600;
   font-size: 0.95rem;
   border: 1px solid transparent;
-  transition: transform var(--transition), box-shadow var(--transition),
-    background var(--transition), border-color var(--transition), color var(--transition);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background var(--transition), border-color var(--transition), color var(--transition);
   white-space: nowrap;
 }
 
 .btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .btn-primary {
   background: var(--accent);
   color: #ffffff;
-  box-shadow: 0 12px 24px -10px rgba(91, 110, 245, 0.55);
+  box-shadow: 0 12px 24px -10px color-mix(in srgb, var(--accent) 60%, transparent);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 16px 30px -10px rgba(91, 110, 245, 0.65);
+  box-shadow: 0 16px 30px -8px color-mix(in srgb, var(--accent) 75%, transparent);
 }
 
 .btn-outline {
-  background: transparent;
+  background: var(--bg-alt);
   color: var(--text);
   border-color: var(--border);
 }
@@ -204,6 +208,7 @@ textarea:focus-visible {
 .btn-outline:hover {
   border-color: var(--accent);
   color: var(--accent);
+  box-shadow: 0 10px 20px -10px color-mix(in srgb, var(--accent) 25%, transparent);
 }
 
 .btn-sm {
@@ -216,8 +221,10 @@ textarea:focus-visible {
    ============================================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.is-visible {
@@ -225,13 +232,13 @@ textarea:focus-visible {
   transform: translateY(0);
 }
 
-/* stagger helper */
+/* Stagger helper */
 .reveal:nth-child(2) { transition-delay: 0.08s; }
 .reveal:nth-child(3) { transition-delay: 0.16s; }
 .reveal:nth-child(4) { transition-delay: 0.24s; }
 
 /* ============================================================
-   SCROLLBAR (subtle, on-brand)
+   SCROLLBAR
    ============================================================ */
 ::-webkit-scrollbar {
   width: 10px;

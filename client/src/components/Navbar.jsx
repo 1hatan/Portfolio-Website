@@ -2,30 +2,56 @@ import { useEffect, useState } from "react";
 import "./Navbar.css";
 
 const NAV_LINKS = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
+  { href: "#home", id: "home", label: "Home" },
+  { href: "#about", id: "about", label: "About" },
+  { href: "#skills", id: "skills", label: "Skills" },
+  { href: "#projects", id: "projects", label: "Projects" },
+  { href: "#contact", id: "contact", label: "Contact" },
 ];
 
 export default function Navbar({ theme, onToggleTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the mobile menu whenever a link is clicked
-  const handleLinkClick = () => setMenuOpen(false);
+  // IntersectionObserver scroll-spy for active nav link
+  useEffect(() => {
+    const sectionElements = NAV_LINKS.map((link) => document.getElementById(link.id)).filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-20% 0px -60% 0px",
+        threshold: 0,
+      }
+    );
+
+    sectionElements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // Close mobile menu on link click
+  const handleLinkClick = (id) => {
+    setActiveSection(id);
+    setMenuOpen(false);
+  };
 
   return (
     <header className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}>
       <div className="container navbar__inner">
-        <a href="#home" className="navbar__logo" onClick={handleLinkClick}>
+        <a href="#home" className="navbar__logo" onClick={() => handleLinkClick("home")}>
           <span className="navbar__logo-bracket">&lt;</span>
           Harani Gayathri
           <span className="navbar__logo-bracket">/&gt;</span>
@@ -35,7 +61,11 @@ export default function Navbar({ theme, onToggleTheme }) {
           <ul>
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <a href={link.href} onClick={handleLinkClick}>
+                <a
+                  href={link.href}
+                  className={activeSection === link.id ? "active" : ""}
+                  onClick={() => handleLinkClick(link.id)}
+                >
                   {link.label}
                 </a>
               </li>

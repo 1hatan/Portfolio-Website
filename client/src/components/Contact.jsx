@@ -28,7 +28,7 @@ function validate(form) {
 export default function Contact() {
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const [status, setStatus] = useState("idle");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,23 +72,27 @@ export default function Contact() {
           <ul className="contact__info">
             <li>
               <span className="contact__info-label">Email</span>
-              <a href="mailto:gayathri.dev2317@gmail.com">gayathri.dev2317@gmail.com</a>
+              <a href="mailto:gayathri.dev2317@gmail.com">
+                <i className="bi bi-envelope-at" aria-hidden="true" /> gayathri.dev2317@gmail.com
+              </a>
             </li>
             <li>
               <span className="contact__info-label">LinkedIn</span>
               <a href="https://www.linkedin.com/in/haranigayathri008/" target="_blank" rel="noreferrer">
-                linkedin.com/in/haranigayathri008
+                <i className="bi bi-linkedin" aria-hidden="true" /> linkedin.com/in/haranigayathri008
               </a>
             </li>
             <li>
               <span className="contact__info-label">GitHub</span>
               <a href="https://github.com/1hatan" target="_blank" rel="noreferrer">
-                github.com/1hatan
+                <i className="bi bi-github" aria-hidden="true" /> github.com/1hatan
               </a>
             </li>
             <li>
               <span className="contact__info-label">Location</span>
-              <span>Tamil Nadu, India</span>
+              <span>
+                <i className="bi bi-geo-alt" aria-hidden="true" /> Tamil Nadu, India
+              </span>
             </li>
           </ul>
         </div>
@@ -100,6 +104,7 @@ export default function Contact() {
               id="name"
               name="name"
               type="text"
+              placeholder="Your name"
               value={form.name}
               onChange={handleChange}
               aria-invalid={Boolean(errors.name)}
@@ -118,6 +123,7 @@ export default function Contact() {
               id="email"
               name="email"
               type="email"
+              placeholder="your.email@example.com"
               value={form.email}
               onChange={handleChange}
               aria-invalid={Boolean(errors.email)}
@@ -136,6 +142,7 @@ export default function Contact() {
               id="message"
               name="message"
               rows="5"
+              placeholder="Hello Harani, I'd like to talk about..."
               value={form.message}
               onChange={handleChange}
               aria-invalid={Boolean(errors.message)}
@@ -149,17 +156,25 @@ export default function Contact() {
           </div>
 
           <button className="btn btn-primary" type="submit" disabled={status === "submitting"}>
-            {status === "submitting" ? "Sending..." : "Send Message"}
+            {status === "submitting" ? (
+              <>
+                <span className="spinner" /> Sending...
+              </>
+            ) : (
+              <>
+                <i className="bi bi-send" aria-hidden="true" /> Send Message
+              </>
+            )}
           </button>
 
           {status === "success" && (
             <p className="form-status form-status--success" role="status">
-              Thanks! Your message has been sent — I&apos;ll get back to you soon.
+              ✨ Thanks! Your message has been sent — I&apos;ll get back to you soon.
             </p>
           )}
           {status === "error" && (
             <p className="form-status form-status--error" role="alert">
-              Something went wrong. Please try again in a moment.
+              ⚠️ Something went wrong. Please try again in a moment or email me directly.
             </p>
           )}
         </form>

@@ -8,6 +8,7 @@ import Projects from "./components/Projects.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import ScrollTop from "./components/ScrollTop.jsx";
+import CustomCursor from "./components/CustomCursor.jsx";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -25,12 +26,14 @@ export default function App() {
 
   // Loading animation: hide once the app has mounted
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 900);
+    const timer = setTimeout(() => setLoading(false), 800);
     return () => clearTimeout(timer);
   }, []);
 
-  // Scroll-triggered reveal animations for any .reveal element
+  // Intersection Observer scroll-reveal animations for all .reveal elements
   useEffect(() => {
+    if (loading) return;
+
     const targets = document.querySelectorAll(".reveal");
     const observer = new IntersectionObserver(
       (entries) => {
@@ -41,7 +44,10 @@ export default function App() {
           }
         });
       },
-      { threshold: 0.15 }
+      {
+        rootMargin: "0px 0px -50px 0px",
+        threshold: 0.12,
+      }
     );
 
     targets.forEach((el) => observer.observe(el));
@@ -52,6 +58,7 @@ export default function App() {
 
   return (
     <>
+      <CustomCursor />
       <Loader visible={loading} />
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
       <main>

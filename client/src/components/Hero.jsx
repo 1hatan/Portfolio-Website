@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import profilePic from "./images/profile.jpg";
+import { useEffect, useState, useRef } from "react";
+import heroCharacterImg from "./images/harani-hero.png";
 import "./Hero.css";
-
 
 const SOCIALS = [
   { label: "GitHub", href: "https://github.com/1hatan", icon: "github" },
@@ -9,8 +8,6 @@ const SOCIALS = [
   { label: "Email", href: "mailto:gayathri.dev2317@gmail.com", icon: "envelope" },
 ];
 
-// Lines "typed" into the hero code-editor mockup. Kept as data so the
-// animation logic below stays generic and reusable.
 const CODE_LINES = [
   { indent: 0, text: "const developer = {" },
   { indent: 1, text: 'name: "Harani Gayathri",' },
@@ -19,12 +16,57 @@ const CODE_LINES = [
   { indent: 1, text: "skills: ['HTML', 'CSS', 'JS', 'React']," },
   { indent: 1, text: "openToWork: true," },
   { indent: 0, text: "};" },
+  { indent: 0, text: "export default developer;" },
+];
+
+const FLOATING_BADGES = [
+  { name: "React", icon: "bi-atom", color: "#61dafb", top: "8%", left: "-4%" },
+  { name: "JavaScript", icon: "bi-filetype-js", color: "#f7df1e", top: "35%", right: "-8%" },
+  { name: "HTML5", icon: "bi-filetype-html", color: "#e34f26", bottom: "16%", left: "-6%" },
+  { name: "CSS3", icon: "bi-filetype-css", color: "#1572b6", bottom: "8%", right: "-2%" },
 ];
 
 export default function Hero() {
   const [typedLines, setTypedLines] = useState([""]);
-  const [showPhoto, setShowPhoto] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const heroRef = useRef(null);
 
+  // Parallax tilt logic on mouse movement over Hero
+  useEffect(() => {
+    const heroNode = heroRef.current;
+    if (!heroNode) return;
+
+    let requestID = null;
+
+    const handleMouseMove = (e) => {
+      const { left, top, width, height } = heroNode.getBoundingClientRect();
+      const x = (e.clientX - left - width / 2) / (width / 2);
+      const y = (e.clientY - top - height / 2) / (height / 2);
+
+      if (requestID) cancelAnimationFrame(requestID);
+
+      requestID = requestAnimationFrame(() => {
+        heroNode.style.setProperty("--mouse-x", `${x}`);
+        heroNode.style.setProperty("--mouse-y", `${y}`);
+      });
+    };
+
+    const handleMouseLeave = () => {
+      heroNode.style.setProperty("--mouse-x", "0");
+      heroNode.style.setProperty("--mouse-y", "0");
+    };
+
+    heroNode.addEventListener("mousemove", handleMouseMove, { passive: true });
+    heroNode.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      heroNode.removeEventListener("mousemove", handleMouseMove);
+      heroNode.removeEventListener("mouseleave", handleMouseLeave);
+      if (requestID) cancelAnimationFrame(requestID);
+    };
+  }, []);
+
+  // Editor typing animation: types lines 1 to 8 then stops cleanly
   useEffect(() => {
     let lineIndex = 0;
     let charIndex = 0;
@@ -42,18 +84,18 @@ export default function Hero() {
           return next;
         });
         charIndex += 1;
-        setTimeout(typeNext, 18 + Math.random() * 22);
+        setTimeout(typeNext, 18 + Math.random() * 20);
       } else {
         lineIndex += 1;
         charIndex = 0;
         if (lineIndex < CODE_LINES.length) {
           setTypedLines((prev) => [...prev, ""]);
-          setTimeout(typeNext, 160);
+          setTimeout(typeNext, 140);
         }
       }
     }
 
-    const start = setTimeout(typeNext, 500);
+    const start = setTimeout(typeNext, 400);
     return () => {
       cancelled = true;
       clearTimeout(start);
@@ -61,31 +103,43 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="home" className="hero">
+    <section id="home" className="hero" ref={heroRef}>
+      {/* Background ambient lighting effects */}
+      <div className="hero__bg-glow" aria-hidden="true" />
+      <div className="hero__bg-grid" aria-hidden="true" />
+
       <div className="container hero__inner">
         <div className="hero__content">
-          <p className="eyebrow">&lt;Home/&gt;</p>
-          <h1 className="hero__title">
+          <div className="hero__eyebrow-wrapper hero-reveal hero-reveal--1">
+            <p className="eyebrow">&lt;Home/&gt;</p>
+            <span className="hero__status-badge">
+              <span className="hero__status-dot" /> Available for hire
+            </span>
+          </div>
+
+          <h1 className="hero__title hero-reveal hero-reveal--2">
             Hi, I&apos;m <span className="hero__title-accent">Harani Gayathri</span>
           </h1>
-          <p className="hero__tagline">
+
+          <p className="hero__tagline hero-reveal hero-reveal--3">
             Frontend Web Developer, fresher — turning ideas into clean, responsive interfaces.
           </p>
-          <p className="hero__desc">
+
+          <p className="hero__desc hero-reveal hero-reveal--4">
             I build fast, accessible websites with HTML, CSS, JavaScript and React, and
             I&apos;m actively looking for my first opportunity as a Frontend Web Developer.
           </p>
 
-          <div className="hero__actions">
+          <div className="hero__actions hero-reveal hero-reveal--5">
             <a href="/Harani Gayathri Resume.pdf" download="Harani Gayathri Resume.pdf" className="btn btn-primary">
-              Download Resume
+              <i className="bi bi-download" aria-hidden="true" /> Download Resume
             </a>
             <a href="#contact" className="btn btn-outline">
-              Contact Me
+              Contact Me <i className="bi bi-arrow-right" aria-hidden="true" />
             </a>
           </div>
 
-          <ul className="hero__socials" aria-label="Social media links">
+          <ul className="hero__socials hero-reveal hero-reveal--6" aria-label="Social media links">
             {SOCIALS.map((s) => (
               <li key={s.label}>
                 <a href={s.href} target="_blank" rel="noreferrer" aria-label={s.label} title={s.label}>
@@ -96,20 +150,43 @@ export default function Hero() {
           </ul>
         </div>
 
-        <div className="hero__visual">
-          <button
-            type="button"
-            className="hero__avatar-button"
-            onClick={() => setShowPhoto(true)}
-            aria-label="Open profile photo"
-          >
-            <img
-              className="hero__avatar"
-              src={profilePic}
-              alt="Profile photo of Harani Gayathri"
-            />
-          </button>
+        <div className="hero__visual hero-reveal hero-reveal--3">
+          {/* Animated Developer Character Container */}
+          <div className="hero__character-wrapper">
+            <div className="hero__character-backdrop" />
+            <div className="hero__character-ring hero__character-ring--1" />
+            <div className="hero__character-ring hero__character-ring--2" />
 
+            <button
+              type="button"
+              className="hero__character-btn"
+              onClick={() => setShowModal(true)}
+              aria-label="View character avatar full screen"
+              title="Click to expand character view"
+            >
+              <div className="hero__character-frame">
+                <img
+                  className="hero__character-img"
+                  src={heroCharacterImg}
+                  alt="Animated developer character representation of Harani Gayathri, Frontend Web Developer"
+                />
+              </div>
+            </button>
+
+            {/* Floating Tech Stack Badges */}
+            {FLOATING_BADGES.map((b, i) => (
+              <div
+                key={b.name}
+                className={`hero__floating-badge hero__floating-badge--${i + 1}`}
+                style={{ top: b.top, left: b.left, right: b.right, bottom: b.bottom }}
+              >
+                <i className={`bi ${b.icon}`} style={{ color: b.color }} />
+                <span>{b.name}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Interactive Code Editor Mockup */}
           <div className="hero__editor" aria-hidden="true">
             <div className="hero__editor-bar">
               <span className="dot dot--red" />
@@ -130,13 +207,31 @@ export default function Hero() {
         </div>
       </div>
 
-      {showPhoto && (
-        <div className="hero__photo-overlay" role="dialog" aria-modal="true" aria-label="Profile photo preview" onClick={() => setShowPhoto(false)}>
+      {/* Character Modal Overlay */}
+      {showModal && (
+        <div
+          className="hero__photo-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Developer character preview"
+          onClick={() => setShowModal(false)}
+        >
           <div className="hero__photo-dialog" onClick={(e) => e.stopPropagation()}>
-            <button type="button" className="hero__photo-close" onClick={() => setShowPhoto(false)} aria-label="Close photo preview">
+            <button
+              type="button"
+              className="hero__photo-close"
+              onClick={() => setShowModal(false)}
+              aria-label="Close character preview"
+            >
               ×
             </button>
-            <img className="hero__photo-full" src={profilePic} alt="Full profile photo of Harani Gayathri" />
+            <div className="hero__photo-content">
+              <img
+                className="hero__photo-full"
+                src={heroCharacterImg}
+                alt="Developer character representation of Harani Gayathri"
+              />
+            </div>
           </div>
         </div>
       )}
