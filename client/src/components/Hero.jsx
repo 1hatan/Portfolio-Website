@@ -12,7 +12,7 @@ const CODE_LINES = [
   { indent: 0, text: "const developer = {" },
   { indent: 1, text: 'name: "Harani Gayathri",' },
   { indent: 1, text: 'role: "Frontend | MERN Developer",' },
-  { indent: 1, text: 'degree: "B.Com Computer Applications",' },
+  { indent: 1, text: 'degree: "B.Sc in Computer Science",' },
   { indent: 1, text: "skills: ['React', 'JS', 'Node', 'MongoDB']," },
   { indent: 1, text: "openToWork: true," },
   { indent: 0, text: "};" },
@@ -126,7 +126,7 @@ export default function Hero() {
           </p>
 
           <p className="hero__desc hero-reveal hero-reveal--4">
-            B.Com Computer Applications graduate specializing in building fast, responsive frontend web interfaces
+            B.Sc in Computer Science graduate specializing in building fast, responsive frontend web interfaces
             and full-stack MERN applications using HTML, CSS, JavaScript, React, Node.js, Express, and MongoDB.
           </p>
 

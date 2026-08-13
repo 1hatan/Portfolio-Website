@@ -18,9 +18,9 @@ const projects = [
       "Fully responsive mobile-friendly event interface",
     ],
     tech: ["React", "Node.js", "Express.js", "MongoDB", "Mongoose", "REST APIs", "CSS3"],
-    demoUrl: "https://portfolio-website-one-olive-10.vercel.app/",
-    githubUrl: "https://github.com/1hatan/Portfolio-website.git",
-    imageUrl: "https://s.wordpress.com/mshots/v1/https://portfolio-website-one-olive-10.vercel.app/?w=720",
+    demoUrl: "https://marathon-website-8fi8-f8vki5isc-1hatans-projects.vercel.app/",
+    githubUrl: "https://github.com/1hatan/Marathon-website",
+    imageUrl: "/marathon-preview.png",
     caseStudy: {
       challenge:
         "Streamlining marathon attendee registrations while eliminating data errors and providing event admins with immediate headcount and t-shirt sizing stats.",

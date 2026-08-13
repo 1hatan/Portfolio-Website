@@ -1,7 +1,7 @@
 import "./About.css";
 
 const HIGHLIGHTS = [
-  { label: "Education", value: "B.Com Computer Applications", icon: "bi-mortarboard" },
+  { label: "Education", value: "B.Sc in Computer Science", icon: "bi-mortarboard" },
   { label: "Role Target", value: "Junior Frontend / MERN Developer", icon: "bi-briefcase" },
   { label: "Core Stack", value: "React, JS, Node, Express, MongoDB", icon: "bi-code-slash" },
   { label: "Focus", value: "Responsive UI & REST API Integration", icon: "bi-layout-sidebar-inset" },
@@ -17,7 +17,7 @@ export default function About() {
         <div className="about__grid">
           <div className="about__text-container reveal">
             <p className="about__text">
-              I am a <strong>B.Com Computer Applications graduate</strong> actively seeking an entry-level{" "}
+              I am a <strong>B.Sc in Computer Science graduate</strong> actively seeking an entry-level{" "}
               <strong>Frontend Web Developer or MERN Stack Developer</strong> position. With a strong academic foundation in computer applications and hands-on experience building real-world web projects, I focus on creating clean, accessible user interfaces backed by solid server logic.
             </p>
 
